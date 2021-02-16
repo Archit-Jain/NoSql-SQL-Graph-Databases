@@ -1,0 +1,2 @@
+mongo "mongodb+srv://mflix-sioyk.mongodb.net/test"  --username archit
+pass

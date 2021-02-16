@@ -1,0 +1,56 @@
+CREATE (j:Person {name:'John', age:27})-[:FRIENDS_OF {since:'20130109'}]->(s:Person {name:'Sally', age:32})
+
+:play intro-neo4j-exercises
+
+
+CREATE (vh:People{name:'Victor Hugo'})		
+	CREATE (sh:People{name:'Susan Hindenburg'})
+	CREATE (sg:People{name:'Suresh Gupta'})
+	CREATE (ss:People{name:'Sally Smith'})
+
+CREATE (j:Organization{name:'The Garden Club'})
+CREATE (k:Organization{name:'The Golf League'})
+
+CREATE (l:Committee{name:'Golf Member'})
+CREATE (m:Committee{name:'Golf Executive'})
+
+	MATCH (p1{name:'Victor Hugo'}),(p2 {name:'The Garden Club'}) CREATE(p1)-[:BELONGS_TO{since:'20100701'}]->(p2)
+	MATCH (p3{name:'Susan Hindenburg'}),(p4 {name:'The Garden Club'}) CREATE(p3)-[:BELONGS_TO{since:'20050515'}]->(p4)
+	MATCH (p5{name:'Susan Hindenburg'}),(p6 {name:'The Golf League'}) CREATE(p5)-[:BELONGS_TO{since:'20070405'}]->(p6)
+	MATCH (p7{name:'Suresh Gupta'}),(p8 {name:'The Golf League'}) CREATE(p7)-[:BELONGS_TO{since:'20090401'}]->(p8)
+	MATCH (p9{name:'Sally Smith'}),(p10 {name:'The Golf League'}) CREATE(p9)-[:BELONGS_TO{since:'20170909'}]->(p10)
+
+MATCH (p1{name:'Victor Hugo'}),(p2 {name:'Susan Hindenburg'}) CREATE(p1)-[:FRIENDS_OF]->(p2)
+MATCH (p1{name:'Sally Smith'}),(p2 {name:'Suresh Gupta'}) CREATE(p1)-[:FRIENDS_OF]->(p2)
+
+MATCH (p1{name:'Susan Hindenburg'}),(p2 {name:'Golf Executive'}) CREATE(p1)-[:MEMBER_OF{role:'President'}]->(p2)
+MATCH (p1{name:'Suresh Gupta'}),(p2 {name:'Golf Executive'}) CREATE(p1)-[:MEMBER_OF{role:'Member'}]->(p2)
+MATCH (p1{name:'Sally Smith'}),(p2 {name:'Golf Executive'}) CREATE(p1)-[:MEMBER_OF{role:'Vice President'}]->(p2)
+
+MATCH (p1{name:'Suresh Gupta'}),(p2 {name:'Golf Member'}) CREATE(p1)-[:MEMBER_OF{role:'Vice President'}]->(p2)
+
+MATCH (p1{name:'Golf Executive'}),(p2 {name:'The Golf League'}) CREATE(p1)-[:SUPPORT]->(p2)
+MATCH (p1{name:'Golf Member'}),(p2 {name:'The Golf League'}) CREATE(p1)-[:SUPPORT]->(p2)
+
+MATCH (a)-[r]-(b) 
+where b.name = 'The Golf League'
+return a, r, b
+
+MATCH (a:Organization) 
+WHERE a.name = 'The Garden Club'
+RETURN a
+
+
+MATCH (a:Person) 
+WHERE a.age >= 25 AND a.age <= 35
+WITH a
+MATCH (a1:Person)-[r:HAS_READ]->(b1:Book)
+WHERE a1.name = a.name
+RETURN a1, r, b1
+
+MATCH (a:People)-[r:BELONGS_TO]-(b:Organization) 
+WHERE b.name = 'The Golf League'
+WITH a
+MATCH (a1:People)-[r1:MEMBER_OF]-(b1:Committee) 
+WHERE a1.name = a.name
+return a1,b1

@@ -1,0 +1,52 @@
+
+CREATE (a:People{name:'John Walsh'})		
+CREATE (b:People{name:'Sally Person'})
+CREATE (c:People{name:'James Baker'})
+CREATE (d:People{name:'Carol Lindsey'})
+CREATE (e:People{name:'John Smith'})
+
+CREATE (j:city{name:'Rochester'})
+CREATE (k:city{name:'Dubrovnik'})
+CREATE (l:city{name:'Zagreb'})
+CREATE (m:city{name:'Syracuse'})
+
+MATCH (p1{name:'John Walsh'}),(p2 {name:'Rochester'}) CREATE(p1)-[:LIVES_IN{date:'20141102'}]->(p2)
+MATCH (p1{name:'Sally Person'}),(p2 {name:'Dubrovnik'}) CREATE(p1)-[:LIVES_IN{date:'20141102'}]->(p2)
+MATCH (p1{name:'James Baker'}),(p2 {name:'Zagreb'}) CREATE(p1)-[:LIVES_IN{date:'20130901'}]->(p2)
+MATCH (p1{name:'Carol Lindsey'}),(p2 {name:'Syracuse'}) CREATE(p1)-[:LIVES_IN{date:'20130815'}]->(p2)
+MATCH (p1{name:'John Smith'}),(p2 {name:'Dubrovnik'}) CREATE(p1)-[:LIVES_IN{date:'20110401'}]->(p2)
+
+MATCH (p1{name:'John Walsh'}),(p2 {name:'James Baker'}) CREATE(p1)-[:FRIEND_OF]->(p2)
+MATCH (p1{name:'Sally Person'}),(p2 {name:'Carol Lindsey'}) CREATE(p1)-[:FRIEND_OF]->(p2)
+MATCH (p1{name:'James Baker'}),(p2 {name:'John Smith'}) CREATE(p1)-[:FRIEND_OF]->(p2)
+MATCH (p1{name:'John Walsh'}),(p2 {name:'John Smith'}) CREATE(p1)-[:FRIEND_OF]->(p2)
+
+MATCH (p1{name:'John Walsh'}),(p2 {name:'James Baker'}) CREATE(p1)-[:MANAGES]->(p2)
+MATCH (p1{name:'John Walsh'}),(p2 {name:'John Smith'}) CREATE(p1)-[:MANAGES]->(p2)
+
+MATCH (a)-[r]-(b) 
+return a, r, b
+MATCH (a:People)-[r:LIVES_IN]-(b:city) 
+where b.name = "Dubrovnik"
+return  a Limit 1
+order by r.date desc
+
+People/City/Date:
+John Walsh  		Rochester 	20141102
+Sally Person		Dubrovnik 	20141102
+James Baker		Zagreb		20130901
+Carol Lindsey		Syracuse	20130815
+John Smith		Dubrovnik	20110401
+
+Friends:
+Walsh and Baker
+Person and Lindsey
+Baker and Smith
+Walsh and Smith
+
+Walsh Manages Person, Baker and Smith
+
+
+
+MATCH (c:Earnings)  RETURN c.reportDate,c.earnings
+
