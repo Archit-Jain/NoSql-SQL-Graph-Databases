@@ -1,0 +1,333 @@
+<!DOCTYPE HTML>
+<!--
+	
+-->
+<html>
+<head>
+    <title>KRT </title>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.6.0/stitch.js"></script>
+    <script>
+	const client = stitch.Stitch.initializeDefaultAppClient('architapp-zehnn');
+	console.log("Stich intialized");
+	const db = client.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('MongoProject');
+	console.log("Connected to database");
+							
+	function myFunction(param) {
+	var e = document.getElementById("ddlViewBy");
+	var strUser = e.options[e.selectedIndex].text;
+	console.log("value from dropdown: "+strUser);
+	console.log("param: "+param);
+			var regex = new RegExp(param, "mi");
+	//var completeParam = ("region:",regex);
+	//var test = "description"+":/\\*apartme*/i";
+		//console.log("completeParam :"+completeParam);
+		if(strUser=="description"){
+								document.getElementById("demo").innerHTML = "Executing query!!";
+	  						  client.auth.loginWithCredential(new stitch.AnonymousCredential()).then(user =>
+						   {	console.log(`Logged in as anonymous user with id: ${user.id}`);
+								db.collection('Housing').find({description:regex},{ limit: 10}).asArray().then(posts=>{
+								//console.log(`Received Data: ${JSON.stringify(posts)}`);
+								console.log(`Test variable  ${(posts.length)}`);	
+								for(var i=0 ; i<posts.length;i++){
+								//var element = document.createElement("p");
+								var element = document.createElement("button");
+								element.setAttribute("id",posts[i].id);
+									var id = posts[i].id;
+								element.onclick=function(id) {
+									  functionExpand(id);
+								}
+								element.innerText = (i+1) +". id:"+posts[i].id+" Region:"+posts[i].region+" Price:"+posts[i].price+"$ type:" + posts[i].type+" sqfeet:"+posts[i].sqfeet+" beds:"+posts[i].beds+" baths:"+posts[i].baths;
+								document.getElementById("demo").appendChild(element);
+								//console.log(`reached 4: $i`);
+
+									}
+								});
+								
+						   });
+	}
+	else if(strUser=="region"){
+									document.getElementById("demo").innerHTML = "Executing query!!";
+	  						  client.auth.loginWithCredential(new stitch.AnonymousCredential()).then(user =>
+						   {	console.log(`Logged in as anonymous user with id: ${user.id}`);
+								db.collection('Housing').find({region:regex},{ limit: 10}).asArray().then(posts=>{
+								//console.log(`Received Data: ${JSON.stringify(posts)}`);
+								console.log(`Test variable  ${(posts.length)}`);	
+								for(var i=0 ; i<posts.length;i++){
+								//var element = document.createElement("p");
+								var element = document.createElement("button");
+								element.setAttribute("id",posts[i].id);
+									var id = posts[i].id;
+								element.onclick=function(id) {
+									  functionExpand(id);
+								}
+								element.innerText = (i+1) +". id:"+posts[i].id+" Region:"+posts[i].region+" Price:"+posts[i].price+"$ type:" + posts[i].type+" sqfeet:"+posts[i].sqfeet+" beds:"+posts[i].beds+" baths:"+posts[i].baths;
+								document.getElementById("demo").appendChild(element);
+								//console.log(`reached 4: $i`);
+
+									}
+								});
+								
+						   });
+	}else if(strUser=="type"){
+								document.getElementById("demo").innerHTML = "Executing query!!";
+	  						  client.auth.loginWithCredential(new stitch.AnonymousCredential()).then(user =>
+						   {	console.log(`Logged in as anonymous user with id: ${user.id}`);
+								db.collection('Housing').find({type:regex},{ limit: 10}).asArray().then(posts=>{
+								//console.log(`Received Data: ${JSON.stringify(posts)}`);
+								console.log(`Test variable  ${(posts.length)}`);	
+								for(var i=0 ; i<posts.length;i++){
+								//var element = document.createElement("p");
+								var element = document.createElement("button");
+								element.setAttribute("id",posts[i].id);
+									var id = posts[i].id;
+								element.onclick=function(id) {
+									  functionExpand(id);
+								}
+								element.innerText = (i+1) +". id:"+posts[i].id+" Region:"+posts[i].region+" Price:"+posts[i].price+"$ type:" + posts[i].type+" sqfeet:"+posts[i].sqfeet+" beds:"+posts[i].beds+" baths:"+posts[i].baths;
+								document.getElementById("demo").appendChild(element);
+								//console.log(`reached 4: $i`);
+
+									}
+								});
+								
+						   });
+		}
+		else if(strUser=="id"){
+										document.getElementById("demo").innerHTML = "Executing query!!";
+	  						  client.auth.loginWithCredential(new stitch.AnonymousCredential()).then(user =>
+						   {	console.log(`Logged in as anonymous user with id: ${user.id}`);
+								db.collection('Housing').find({id:regex},{ limit: 10}).asArray().then(posts=>{
+								//console.log(`Received Data: ${JSON.stringify(posts)}`);
+								console.log(`Test variable  ${(posts.length)}`);	
+								for(var i=0 ; i<posts.length;i++){
+								//var element = document.createElement("p");
+								var element = document.createElement("button");
+								element.setAttribute("id",posts[i].id);
+									var id = posts[i].id;
+								element.onclick=function(id) {
+									  functionExpand(id);
+								}
+								element.innerText = (i+1) +". id:"+posts[i].id+" Region:"+posts[i].region+" Price:"+posts[i].price+"$ type:" + posts[i].type+" sqfeet:"+posts[i].sqfeet+" beds:"+posts[i].beds+" baths:"+posts[i].baths;
+								document.getElementById("demo").appendChild(element);
+								//console.log(`reached 4: $i`);
+
+									}
+								});
+								
+						   });
+		}
+	}
+    </script>
+	<script>
+	function myUpdateFunction(insert){
+	var idValue = document.getElementById("id").value ;
+	//var strUser = e1.options[e1.selectedIndex].value;
+	
+	db.collection('Housing').updateOne({id: idValue}, {$set:{Comment:insert}}, {upsert:true}).then(() =>{
+			db.collection('Housing').find({id: idValue}, { limit: 10}).asArray().then(docs => {
+				console.log("Found docs", docs)
+				for(var j=0;j<docs.length;j++){
+				var newelement = document.createElement("p");
+				newelement.innerText = "Founds total docs: "+docs.length+" ::  "+(j+1)+". "+" id:"+docs[j].id+" Comment:"+docs[j].Comment;
+				document.getElementById("demo2").appendChild(newelement);
+				console.log("[MongoDB Stitch] Connected to Stitch")
+				}
+				
+			});
+		});
+	}
+	</script>
+	<script>
+	function myGeoFunction(lat,lon){
+	//console.log("lat:"+lat+" "+"long:"+lon);
+	//var location = [85.0017, 32.4357];
+		//console.log("location1"+location);
+		var lat1 = parseFloat(lat);
+		var lon1 = parseFloat(lon);
+		var location2 =[];
+	location2[0]=lon1;
+	location2[1]=lat1;
+	
+	console.log("location2"+location);
+	db.collection('Housing').find({ 
+
+				loc:
+				{ $near: 
+					{
+					$geometry: {
+						type: "Point" ,
+						coordinates: location2
+					  },
+					
+					$maxDistance: 400
+				  }
+				}
+			},{limit: 10}).asArray().then(posts=>{			
+				for (var i = 0 ; i < posts.length; i++){
+				
+					var elem = document.createElement("p");
+					elem.innerText = (i + 1) + " ------ " + posts[i].id + " ---region is--- " + posts[i].region + " ---lattitude- "+posts[i].lat+"--longitude--- " +posts[i].long;
+					document.getElementById("demo3").appendChild(elem);
+				
+				}
+			}).catch(err => {
+			document.getElementById("demo3").innerHTML = "Oops we couldn't find any docs near Input Coordinates";
+
+			console.error(err)
+		  });
+	
+	}
+	</script>
+	<script>
+	function functionExpand(id){
+	console.log("clicked for id :"+id.target.id);
+	var input = parseInt(id.target.id);
+	document.getElementById("demo").innerHTML = "Executing query!!";
+	  						  client.auth.loginWithCredential(new stitch.AnonymousCredential()).then(user =>
+						   {	console.log(`Logged in as anonymous user with id: ${user.id}`);
+								db.collection('Housing').find({id: input},{ limit: 1}).asArray().then(posts=>{
+								//console.log(`Received Data: ${JSON.stringify(posts)}`);
+								console.log(`fetched  ${(posts.length)}`);	
+								for(var i=0 ; i<posts.length;i++){
+								var element = document.createElement("p");
+								element.innerText = (i+1) +". id:"+posts[i].id+" Region :"+posts[i].region+" Price :"+posts[i].price+"$ type :" + posts[i].type+" sqfeet :"+posts[i].sqfeet+" beds :"+posts[i].beds+" baths:"+posts[i].baths;
+								var element1= document.createElement("p");	
+								element1.setAttribute("maxlength",15);								
+								element1.innerText = "Description: "+posts[i].description;
+								
+								var element2= document.createElement("link");
+								element2.setAttribute("href",posts[i].url);
+								var x = document.createElement("IMG");
+								  x.setAttribute("src", posts[i].image_url);
+								  x.setAttribute("width", "304");
+								  x.setAttribute("height", "228");
+								  x.setAttribute("alt", "Document image not present");
+								  document.getElementById("demo").appendChild(element);
+								  document.getElementById("demo").appendChild(element1);
+								  document.getElementById("demo").appendChild(element2);
+
+								  document.getElementById("demo").appendChild(x);
+								//console.log(`reached 4: $i`);
+
+									}
+								});
+								
+						   });
+	}
+	</script>
+</head>
+<body class="landing is-preload">
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <h1><a href="index.html">Housing</a> by MongoDB</h1>
+
+    </header>
+
+    <!-- Banner -->
+    <section id="banner">
+        <h2>Housing</h2>
+        <p>We have a home for everyone! </p>
+
+    </section>
+
+    <!-- Main -->
+    <section id="main" class="container">
+
+        <section class="box special">
+            <header class="major">
+                <h2>Welcome to Housing</h2>
+                    
+                   <!-- Database hosted on MongoDB Atlas</h2>-->
+                <p>Webpage to bring data for housing with web</p>
+            </header>
+            <div class="row gtr-uniform gtr-50">
+				<div class="table-wrapper">
+				<select id="ddlViewBy">
+				  <option value="1">id</option>
+				  <option value="2" selected="selected">description</option>
+				  <option value="3">type</option>
+				  <option value="3">region</option>
+
+				</select>
+				</div>
+                <div class="col-9 col-12-mobilep">
+				
+                    <input type="text" name="query" id="query" value="" placeholder="Query"/>
+					<button class="button" type="submit" value="Search" class="fit" onclick="myFunction((document.getElementById('query').value))">Search</button>
+
+                </div>
+                <div class="col-3 col-12-mobilep">
+
+                </div>
+                <p id="demo"></p>
+
+            </div>
+        </section>
+		
+		
+		<section class="box special">
+		<header class="major">
+                <h3>Add Comments on docs</h3>
+                    
+                   <!-- Database hosted on MongoDB Atlas</h2>-->
+            </header>
+			<div class="row gtr-uniform gtr-50">
+				
+					<span class="icon solid major fa-bolt accent2"></span>
+					
+					<p>Insert Query and the data by adding a Comment in the text for the following id:</p>
+						
+						<div class="table-wrapper">
+					<input type="text" name="id" id="id" value="" placeholder="Enter Id here eg:7041509589" />
+					</div>
+					
+					<div class="col-9 col-12-mobilep">
+                    <input type="text" name="comment" id="comment" value="" placeholder="Comment"/>
+                </div>
+                <div class="col-3 col-12-mobilep">
+                    <button class="button" type="submit" value="Search" class="fit" onclick="myUpdateFunction((document.getElementById('comment').value))">Update</button>
+
+                </div>
+				<p id="demo2"></p>
+			</div>
+		</section>
+		
+		 <section class="box special">
+            <header class="major">
+                <h3>Geo Queries</h3>
+                    
+                   <!-- Database hosted on MongoDB Atlas</h2>-->
+            </header>
+            <div class="row gtr-uniform gtr-50">
+				
+                <div class="table-wrapper">
+				     <input type="number" name="lat" id="lat" value="" placeholder="Latitude"/>
+                    <input type="number" name="lon" id="lon" value="" placeholder="Longitude"/>
+					<button class="button" type="submit" value="Search" class="fit" onclick="myGeoFunction((document.getElementById('lat').value),(document.getElementById('lon').value))">Search</button>
+
+                </div>
+                <div class="col-3 col-12-mobilep">
+
+                </div>
+                <p id="demo3"></p>
+
+            </div>
+        </section>
+
+    </section>
+	
+
+
+</div>
+<section id="cta">
+
+    <p>MongoDB Project By Archit Jain, Harshal Bendale, Gurkiranjot Singh, Vidhi Shah</p>
+
+</section>
+
+
+</body>
+</html>
