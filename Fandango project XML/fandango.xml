@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="fandango.css"?>
+<!DOCTYPE Fandango SYSTEM "fandango.dtd">
+<Fandango>
+	<Site>Fandango</Site>
+	<Text>Rochester,NY Showtime Date of show:9/26/2018</Text>
+	<Theater Tid="Movies 10">
+		<TName>Movies 10, Henrietta</TName>
+		<Location>2613 West Henrietta Road, Rochester, NY  14623</Location>
+		<Movies>
+			<Movie Mid="1">
+				<Name>Hotel Transylvania 3 Summer</Name>
+				<Rating>(PG-13)</Rating>
+				<Length>1 hr 31 min</Length>
+				<Showtime>12:25p | 5:45p | 7:50p </Showtime>
+			</Movie>
+			<Movie Mid="2">
+				<Name>Alpha</Name>
+				<Rating>(PG-13)</Rating>
+				<Length>1 hr 37 min</Length>
+				<Showtime>2:20p | 2:35p | 4:50p | 7:15p </Showtime>
+			</Movie>			
+			<Movie Mid="3">
+				<Name>Mile</Name>
+				<Rating>(R)</Rating>
+				<Length>1 hr 35 min</Length>
+				<Showtime>2:05p | 3:35p | 7:25p </Showtime>
+			</Movie>			
+		</Movies>
+	</Theater>
+	<Theater Tid="Regal">
+		<TName>Regal Culver Ridge Plaza 16</TName>
+		<Location>2255 Ridge Road East, Irondequoit, NY  14622</Location>
+		<Movies>
+			<Movie Mid="2">
+				<Name>Alpha</Name>
+				<Rating>(PG-13)</Rating>
+				<Length>1 hr 37 min</Length>
+				<Showtime>2:20p | 2:35p | 4:50p | 7:15p </Showtime>
+			</Movie>
+			<Movie Mid="4">
+				<Name>Mission: Impossible - Fallout </Name>
+				<Rating>(PG-13)</Rating>
+				<Length>2 hr 27 min</Length>
+				<Showtime>1:15p | 4:30p | 7:50p </Showtime>
+			</Movie>
+			<Movie Mid="5">
+				<Name>The Nun</Name>
+				<Rating>(R)</Rating>
+				<Length>1 hr 36 min</Length>
+				<Showtime>2:00p | 4:25p | 6:50p | 9:15p </Showtime>
+			</Movie>			
+		</Movies>
+	</Theater> 
+</Fandango>

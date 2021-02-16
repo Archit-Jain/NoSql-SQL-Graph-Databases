@@ -1,0 +1,20 @@
+<!ELEMENT Fandango (Site,Text,Theater+)>
+<!ELEMENT Site (#PCDATA)>
+<!ELEMENT Text (#PCDATA)>
+<!ELEMENT Theater (TName,Location,Movies)>
+<!ELEMENT Location (#PCDATA)>
+<!ELEMENT TName (#PCDATA)>
+<!ELEMENT Movies (Movie+)>
+<!ELEMENT Movie (Name,Rating,Length,Showtime)>
+
+<!ELEMENT Name (#PCDATA)>
+<!ELEMENT Rating (#PCDATA)>
+<!ELEMENT Length (#PCDATA)>
+<!ELEMENT Showtime (#PCDATA)>
+<!ELEMENT Cost (#PCDATA)>
+<!ELEMENT Genre (#PCDATA)>
+<!ELEMENT Year (#PCDATA)>
+
+<!ATTLIST Theater Tid CDATA #REQUIRED>
+<!ATTLIST Movie Mid CDATA #REQUIRED>
+

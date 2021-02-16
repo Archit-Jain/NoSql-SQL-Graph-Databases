@@ -1,0 +1,81 @@
+Fandango
+{
+width:100%;
+padding: 20px;
+
+
+}
+Site{
+	display:block;
+	font-size:30px;
+	font-weight:bold;
+	    border: solid 1px;
+		color:RED;
+
+
+}
+Text{
+display:block;
+color:blue;
+    border: solid 1px;
+
+}
+
+Theater
+{
+display:table;
+margin-bottom:10pt;
+border: solid 1px;
+
+
+}
+TName{
+display:block;
+margin-bottom:10pt;	
+margin-left:10pt;
+    border: solid 1px;
+		font-weight:bold;
+
+
+}
+Location{
+display:block;
+margin-bottom:10pt;	
+margin-left:10pt;
+	font-weight:bold;
+
+    border: solid 1px;
+
+
+}
+
+Movies
+{
+display:table;
+margin-left:10pt;
+font-size:10pt;
+}
+
+
+Movie{
+display:table-row;
+margin-left:10pt;
+font-size:10pt;
+    border: solid 1px;
+    width: 120%;	
+}
+
+Name,Rating,Length{
+display:table-cell;
+margin-left:10pt;
+margin-right:10pt;
+font-size:10pt;
+  padding: 20px;
+
+
+    
+}
+Showtime{
+	display:table-cell;
+
+}
