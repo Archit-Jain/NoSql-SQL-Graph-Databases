@@ -1,0 +1,16 @@
+//
+LOAD CSV WITH HEADERS FROM 'file:///CSVFiles/Cruise.csv' as line
+CREATE (:Cruise	{cruiseID: line.cruiseID, destination: line.destination,shipName: line.shipName})
+//
+LOAD CSV WITH HEADERS FROM 'file:///CSVFiles/Passenger.csv' as line
+CREATE (:Passenger {passengerID: line.passengerID, name: line.name, address:line.address })
+//
+LOAD CSV WITH HEADERS FROM 'file:///CSVFiles/CruisePerson.csv' as line
+MATCH (c:Cruise)
+MATCH (p:Passenger)
+WHERE c.cruiseID = line.cruiseID AND p.passengerID = line.PassengerID
+CREATE (c)-[r:Cruise_Passenger {departDate: line.departDate, returnDate: line.returnDate}]->(p)
+
+MATCH (c:cruise)-[r]->(e:passenger) RETURN c, r, e
+
+//CREATE (c)-[r:Cruise_Passenger {departDate: toInteger(line.departDate), returnDate: toInteger(line.returnDate)}]->(p)

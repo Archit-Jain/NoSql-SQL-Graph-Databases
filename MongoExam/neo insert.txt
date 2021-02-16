@@ -1,0 +1,38 @@
+CREATE(a:Cruise{cruiseId:'1',destination:'Dubrovnik',shipName:'Spirit of the Sea'})
+CREATE(b:Cruise{cruiseId:'2',destination:'Saint Croix',shipName:'Windjammer'})
+CREATE(c:Cruise{cruiseId:'3',destination:'Alaska',shipName:'Pacific Princess'})
+
+//CREATE(n:Sections{sectionId:'ISTE23401',title:'My Other Database Course',creditHours:4 ,room:'GOL-2620'})
+
+CREATE(p1:Passenger{passengerID:'10',name:'Sue Smith',address:'123 Sesame Street',cruiseid:['1','2']}),
+(p2:Students{passengerID:'20',name:'Fran Jones',address:'205 West Street',cruiseid:['2','3']}),
+(p3:Students{passengerID:'30',name:'George Jungle',address:'270 North Fifth Street',cruiseid:'1'})
+
+MATCH(x{passengerID:'10'}),(y{cruiseId:'1'})CREATE(x)-[:CRUISE_PASSENGER{departDate:'20190502',returnDate:'20190513'}]->(y)
+MATCH(x{passengerID:'20'}),(y{cruiseId:'1'})CREATE(x)-[:CRUISE_PASSENGER{departDate:'20190502',returnDate:'20190513'}]->(y)
+
+MATCH(x{passengerID:'20'}),(y{cruiseId:'2'})CREATE(x)-[:CRUISE_PASSENGER{departDate:'20190520',returnDate:'20190525'}]->(y)
+MATCH(x{passengerID:'30'}),(y{cruiseId:'2'})CREATE(x)-[:CRUISE_PASSENGER{departDate:'20190520',returnDate:'20190525'}]->(y)
+
+MATCH(x{passengerID:'30'}),(y{cruiseId:'3'})CREATE(x)-[:CRUISE_PASSENGER{departDate:'20190610',returnDate:'20190620'}]->(y)
+
+MATCH(p1{firstName:'Ivan'}),(p2{sectionId:'ISTE12301'})CREATE(p1)-[:ENROLLED_IN]->(p2)
+MATCH(p1{firstName:'Ivan'}),(p2{sectionId:'ISTE23401'})CREATE(p1)-[:ENROLLED_IN]->(p2)
+MATCH(p1{firstName:'Sally'}),(p2{sectionId:'ISTE23401'})CREATE(p1)-[:ENROLLED_IN]->(p2)
+
+CREATE (p)-[r:PROCUCT_SUPPLIER {price: TOFLOAT (line.price), qtyAvailable: TOINT(line.qtyAvailable)}]->(s)
+
+passengerID	name	address
+10	Sue Smith	123 Sesame Street
+20	Fran Jones	205 West Street
+30	George Jungle	270 North Fifth Street
+
+cruiseIdPassengerID	departDate	returnDate
+1	10	20190502	20190513
+1	20	20190502	20190513
+2	20	20190520	20190525
+2	30	20190520	20190525
+3	30	20190610	20190620
+
+
+
