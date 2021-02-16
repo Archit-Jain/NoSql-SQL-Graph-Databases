@@ -1,0 +1,28 @@
+On OS command line - Images stored in /Data2/images
+//mac or Win
+mongofiles --db SampleImages put sailingShip.JPG --local /Data2/images/sailingShip.JPG
+mongofiles --db SampleImages put harbor.JPG --local C:\MongoDB181\mongodb\ScriptsJavaGridFS\images\harbor.JPG
+
+mongofiles --db SampleImages list
+//mac or win
+mongofiles --db SampleImages get sailingShip.JPG --local /Data2/images/sailingShipNEW.JPG 
+mongofiles --db SampleImages get harbor.JPG --local C:\MongoDB181\mongodb\ScriptsJavaGridFS\images\newImages\harborNEW.JPG
+
+In Mongo client
+
+db.fs.files.find().pretty()
+db.fs.chunks.find().pretty().limit(20)
+
+//do not show data
+db.fs.chunks.find({},{_id:1, files_id:1, n:1}).pretty().limit(20)
+
+		
+//mac or Win
+mongofiles --db SampleImages put img_1.JPG --local C:/Users/archi/mongo/img_1.JPG
+mongofiles --db SampleImages put img_2.JPG --local C:/Users/archi/mongo/img_2.JPG
+
+mongofiles --db SampleImages get img_1.JPG --local C:/Users/archi/mongo/img_1NEW.JPG
+mongofiles --db SampleImages get img_2.JPG --local C:/Users/archi/mongo/img_2NEW.JPG
+
+mongofiles --db SampleImages get sailingShip.JPG --local /Data2/images/sailingShipNEW.JPG 
+mongofiles --db SampleImages get harbor.JPG --local C:\MongoDB181\mongodb\ScriptsJavaGridFS\images\newImages\harborNEW.JPG

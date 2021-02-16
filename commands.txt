@@ -1,0 +1,18 @@
+mongod --dbpath path to database data directory/data
+mongoimport --db TestMongo  --collection  Tweets  --type csv  --file /path to  file/FourTweets.csv --headerline
+show databases
+use TestMongo
+show collections
+db.Tweets.find()
+db.Tweets.find().pretty()
+---
+use 
+db.dropDatabase()
+
+mongodb
+-----
+mongod --dbpath C:/Users/archi/mongodb/data
+
+load("C:\\Users\\archi\\\mongodb\\scripts\\Starter.js")
+
+mongoimport --db SampleSocial --collection Tweets --type csv --file C:\Users\archi\mongodb\tweets10000-2.csv --headerline;
